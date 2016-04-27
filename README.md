@@ -20,11 +20,15 @@
 The Sensirion datasheet and application notes define the following formulas:<font face="arial" size="2">
 (for VDD = 5V)
 
-Temperature<sub>C</sub> = -40.0 + 0.01 * SO<sub>T</sub>
-RH<sub>linear</sub> = -4.0 + 0.0405 * SO<sub>RH</sub> + (-2.8 * 10<sup>-6</sup> * SO<sub>RH</sub><sup>2</sup>)
-RH<sub>true</sub> = (Temperature<sub>C</sub> - 25.0) * (0.01 + 0.0008 * SO<sub>RH</sub>) + RH<sub>linear</sub>
-H = (log<sub>10</sub>(RH<sub>true</sub>) - 2.0) / 0.4343 + (17.62 * Temperature<sub>C</sub>) / (243.12 + Temperature<sub>C</sub>)
-DewPoint = 243.12 * H / (17.62 - H)</font>
+> Temperature<sub>C</sub> = -40.0 + 0.01 * SO<sub>T</sub>
+> 
+> RH<sub>linear</sub> = -4.0 + 0.0405 * SO<sub>RH</sub> + (-2.8 * 10<sup>-6</sup> * SO<sub>RH</sub><sup>2</sup>)
+> 
+> RH<sub>true</sub> = (Temperature<sub>C</sub> - 25.0) * (0.01 + 0.0008 * SO<sub>RH</sub>) + RH<sub>linear</sub>
+> 
+> H = (log<sub>10</sub>(RH<sub>true</sub>) - 2.0) / 0.4343 + (17.62 * Temperature<sub>C</sub>) / (243.12 + Temperature<sub>C</sub>)
+> 
+> DewPoint = 243.12 * H / (17.62 - H)</font>
 
 These formulas are easily implemented using the uM-FPU V3 chip with very little overhead on the microcontroller. See [Application Note 33 - Sensirion SHTxx Temperature and Humidity Sensor](appnotes.html). Examples of other sensors that provide data output that can be further enhanced with floating point calculations include: position sensors, thermocouples, accelerometers, gyroscopes, pressure sensors and many others.</dd>
 
@@ -54,11 +58,18 @@ These formulas are easily implemented using the uM-FPU V3 chip with very little 
 
 <dt id="faq10">**What is a floating point number?**</dt>
 
-<dd>A floating point number is the representation of a real number that consists of three parts:*   a significand, or mantissa, that defines the magnitude of a number*   an exponent, that scales a number*   a sign, that indicates if a number is positive or negativeMicrocontrollers most commonly use floating point numbers stored as 32-bit values. The uM-FPU V3 chip conforms to the standard for 32-bit IEEE 754 floating point numbers, but it can also read and write an alternate 32-bit format used by some Microchip PIC assemblers and compilers.</dd>
+<dd>A floating point number is the representation of a real number that consists of three parts:
+
+* a significand, or mantissa, that defines the magnitude of a number
+* an exponent, that scales a number
+* a sign, that indicates if a number is positive or negative
+
+Microcontrollers most commonly use floating point numbers stored as 32-bit values. The uM-FPU V3 chip conforms to the standard for 32-bit IEEE 754 floating point numbers, but it can also read and write an alternate 32-bit format used by some Microchip PIC assemblers and compilers.</dd>
 
 <dt id="faq11">**What is the IEEE 754 standard?**</dt>
 
 <dd>The IEEE 754 standard was created to standardize the representation and manipulation of floating point numbers by computers. It defines a standard for 32-bit and 64-bit floating point numbers and is the standard used by most desktop computers and compilers. Microcontroller applications typically use 32-bit floating point numbers. The 32-bit IEEE 754 representation is as follows:
+
 ![](images/IEEEformat.jpg)
 
 **Sign Bit (bit 31)**
@@ -72,13 +83,13 @@ The mantissa is a 23-bit field that stores the precision bits of the number. For
 
 Some examples of IEEE-754 32-bit floating point values are as follows:
 
- <font face="arial" size="2">IEEE 754 representation</font> |
- <font face="arial" size="2">Real Number</font> | <font face="arial" size="2">(hexadecimal)</font> |
- <font face="arial" size="2">1.0</font> | <font face="arial" size="2">3F800000</font> |
- <font face="arial" size="2">2.0</font> | <font face="arial" size="2">40000000</font> |
- <font face="arial" size="2">3.1415927</font> | <font face="arial" size="2">40490FDB</font> |
- <font face="arial" size="2">-1.0</font> | <font face="arial" size="2">BF800000</font> |
- <font face="arial" size="2">-100.0</font> | <font face="arial" size="2">C2C80000</font> |
+| Real number | IEEE 754 representation |
+|-------------|-------------------------|
+| 1.0         | 3F800000                |
+| 2.0         | 40000000                |
+| 3.1415927   | 40490FDB                |
+| -1.0        | BF800000                |
+| -100.0      | C2C80000                |
 
 </dd>
 
